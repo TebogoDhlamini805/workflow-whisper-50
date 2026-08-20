@@ -17,7 +17,7 @@ import { askAssistant } from "@/lib/ai.functions";
 import { assistantSystemPrompt, quickPrompts } from "@/lib/prompts";
 import { useStore } from "@/lib/store";
 
-export const Route = createFileRoute("/assistant")({
+export const Route = createFileRoute("/_authenticated/assistant")({
   head: () => ({
     meta: [
       { title: "AI Assistant — Cadence" },

@@ -1,4 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import type { HistoryItem, HistoryTool, Priority, Task } from "./types";
 
 const TASKS_KEY = "cadence.tasks.v1";
@@ -90,6 +91,35 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     setHydrated(true);
   }, []);
 
+  // Keep the profile in sync with the signed-in user's stored profile.
+  useEffect(() => {
+    let active = true;
+    const load = async (userId: string | undefined) => {
+      if (!userId) return;
+      const { data } = await supabase
+        .from("profiles")
+        .select("name, role, working_hours, default_tone")
+        .eq("id", userId)
+        .maybeSingle();
+      if (!active || !data) return;
+      setProfile((current) => ({
+        name: data.name || current.name,
+        role: data.role || current.role,
+        workingHours: data.working_hours || current.workingHours,
+        defaultTone: data.default_tone || current.defaultTone,
+      }));
+    };
+    supabase.auth.getSession().then(({ data }) => load(data.session?.user.id));
+    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
+      void load(session?.user.id);
+    });
+    return () => {
+      active = false;
+      sub.subscription.unsubscribe();
+    };
+  }, []);
+
+
   useEffect(() => {
     if (hydrated) window.localStorage.setItem(TASKS_KEY, JSON.stringify(tasks));
   }, [tasks, hydrated]);
@@ -134,7 +164,22 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         setHistory((current) => current.map((h) => (h.id === id ? { ...h, saved: !h.saved } : h))),
       deleteHistory: (id) => setHistory((current) => current.filter((h) => h.id !== id)),
       clearHistory: () => setHistory([]),
-      updateProfile: (next) => setProfile((current) => ({ ...current, ...next })),
+      updateProfile: (next) => {
+        setProfile((current) => ({ ...current, ...next }));
+        void (async () => {
+          const { data } = await supabase.auth.getSession();
+          const userId = data.session?.user.id;
+          if (!userId) return;
+          const merged = { ...profile, ...next };
+          await supabase.from("profiles").upsert({
+            id: userId,
+            name: merged.name,
+            role: merged.role,
+            working_hours: merged.workingHours,
+            default_tone: merged.defaultTone,
+          });
+        })();
+      },
     }),
     [hydrated, tasks, history, profile, addTasks],
   );

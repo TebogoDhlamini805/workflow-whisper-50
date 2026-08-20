@@ -7,7 +7,7 @@ import { AiNotice, EmptyState, GhostButton, SectionLabel } from "@/components/ai
 import { toolLabel, useStore } from "@/lib/store";
 import type { HistoryTool } from "@/lib/types";
 
-export const Route = createFileRoute("/history")({
+export const Route = createFileRoute("/_authenticated/history")({
   head: () => ({
     meta: [
       { title: "AI History — Cadence" },

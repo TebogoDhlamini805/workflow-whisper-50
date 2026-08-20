@@ -24,7 +24,7 @@ import { emailPrompt } from "@/lib/prompts";
 import { useStore } from "@/lib/store";
 import type { EmailInput, EmailResult } from "@/lib/types";
 
-export const Route = createFileRoute("/email")({
+export const Route = createFileRoute("/_authenticated/email")({
   head: () => ({
     meta: [
       { title: "Smart Email Generator — Cadence" },

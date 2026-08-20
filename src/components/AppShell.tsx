@@ -1,14 +1,17 @@
-import { Link, useRouterState } from "@tanstack/react-router";
+import { useQueryClient } from "@tanstack/react-query";
+import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import {
   CalendarClock,
   FileText,
   History,
   LayoutDashboard,
+  LogOut,
   Mail,
   Settings,
   Sparkles,
 } from "lucide-react";
 import type { ReactNode } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import { useStore } from "@/lib/store";
 
 const navItems = [
@@ -36,6 +39,16 @@ export function AppShell({
 }) {
   const { profile } = useStore();
   const pathname = useRouterState({ select: (state) => state.location.pathname });
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
+  async function handleSignOut() {
+    await queryClient.cancelQueries();
+    queryClient.clear();
+    await supabase.auth.signOut();
+    navigate({ to: "/auth", replace: true });
+  }
+
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -73,6 +86,13 @@ export function AppShell({
         <div className="rounded-xl bg-secondary p-3">
           <p className="text-sm font-medium">{profile.name}</p>
           <p className="text-xs text-muted-foreground">{profile.role}</p>
+          <button
+            onClick={handleSignOut}
+            className="mt-2 flex items-center gap-1.5 text-xs text-muted-foreground transition-colors hover:text-foreground"
+          >
+            <LogOut className="size-3.5" aria-hidden />
+            Sign out
+          </button>
         </div>
       </aside>
 
