@@ -38,11 +38,11 @@ const filters: { key: "all" | HistoryTool | "saved"; label: string }[] = [
 function preview(output: unknown) {
   if (!output || typeof output !== "object") return "";
   const data = output as Record<string, unknown>;
-  if (typeof data.body === "string") return data.body;
-  if (typeof data.summary === "string") return data.summary;
-  if (typeof data.text === "string") return data.text;
-  if (Array.isArray(data.blocks)) {
-    return (data.blocks as { start?: string; end?: string; title?: string }[])
+  if (typeof data["body"] === "string") return data["body"];
+  if (typeof data["summary"] === "string") return data["summary"];
+  if (typeof data["text"] === "string") return data["text"];
+  if (Array.isArray(data["blocks"])) {
+    return (data["blocks"] as { start?: string; end?: string; title?: string }[])
       .map((block) => `${block.start}–${block.end}  ${block.title}`)
       .join("\n");
   }
