@@ -22,7 +22,7 @@ import { meetingPrompt } from "@/lib/prompts";
 import { useStore } from "@/lib/store";
 import type { MeetingResult } from "@/lib/types";
 
-export const Route = createFileRoute("/meetings")({
+export const Route = createFileRoute("/_authenticated/meetings")({
   head: () => ({
     meta: [
       { title: "Meeting Notes Summarizer — Cadence" },

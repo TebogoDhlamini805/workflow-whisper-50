@@ -25,7 +25,7 @@ import { plannerPrompt } from "@/lib/prompts";
 import { useStore } from "@/lib/store";
 import type { Priority, ScheduleResult } from "@/lib/types";
 
-export const Route = createFileRoute("/planner")({
+export const Route = createFileRoute("/_authenticated/planner")({
   head: () => ({
     meta: [
       { title: "AI Task Planner & Scheduler — Cadence" },

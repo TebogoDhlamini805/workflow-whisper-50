@@ -4,7 +4,7 @@ import { AppShell } from "@/components/AppShell";
 import { AiNotice, SectionLabel } from "@/components/ai-ui";
 import { useStore, toolLabel } from "@/lib/store";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/_authenticated/")({
   head: () => ({
     meta: [
       { title: "Cadence — AI Workplace Productivity Dashboard" },

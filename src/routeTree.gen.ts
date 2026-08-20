@@ -9,180 +9,180 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as AssistantRouteImport } from './routes/assistant'
-import { Route as EmailRouteImport } from './routes/email'
-import { Route as HistoryRouteImport } from './routes/history'
-import { Route as MeetingsRouteImport } from './routes/meetings'
-import { Route as PlannerRouteImport } from './routes/planner'
-import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
+import { Route as AuthenticatedAssistantRouteImport } from './routes/_authenticated/assistant'
+import { Route as AuthenticatedEmailRouteImport } from './routes/_authenticated/email'
+import { Route as AuthenticatedHistoryRouteImport } from './routes/_authenticated/history'
+import { Route as AuthenticatedMeetingsRouteImport } from './routes/_authenticated/meetings'
+import { Route as AuthenticatedPlannerRouteImport } from './routes/_authenticated/planner'
+import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
+const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
+  id: '/_authenticated/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AssistantRoute = AssistantRouteImport.update({
-  id: '/assistant',
+const AuthenticatedAssistantRoute = AuthenticatedAssistantRouteImport.update({
+  id: '/_authenticated/assistant',
   path: '/assistant',
   getParentRoute: () => rootRouteImport,
 } as any)
-const EmailRoute = EmailRouteImport.update({
-  id: '/email',
+const AuthenticatedEmailRoute = AuthenticatedEmailRouteImport.update({
+  id: '/_authenticated/email',
   path: '/email',
   getParentRoute: () => rootRouteImport,
 } as any)
-const HistoryRoute = HistoryRouteImport.update({
-  id: '/history',
+const AuthenticatedHistoryRoute = AuthenticatedHistoryRouteImport.update({
+  id: '/_authenticated/history',
   path: '/history',
   getParentRoute: () => rootRouteImport,
 } as any)
-const MeetingsRoute = MeetingsRouteImport.update({
-  id: '/meetings',
+const AuthenticatedMeetingsRoute = AuthenticatedMeetingsRouteImport.update({
+  id: '/_authenticated/meetings',
   path: '/meetings',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PlannerRoute = PlannerRouteImport.update({
-  id: '/planner',
+const AuthenticatedPlannerRoute = AuthenticatedPlannerRouteImport.update({
+  id: '/_authenticated/planner',
   path: '/planner',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SettingsRoute = SettingsRouteImport.update({
-  id: '/settings',
+const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
+  id: '/_authenticated/settings',
   path: '/settings',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/assistant': typeof AssistantRoute
-  '/email': typeof EmailRoute
-  '/history': typeof HistoryRoute
-  '/meetings': typeof MeetingsRoute
-  '/planner': typeof PlannerRoute
-  '/settings': typeof SettingsRoute
+  '/assistant': typeof AuthenticatedAssistantRoute
+  '/email': typeof AuthenticatedEmailRoute
+  '/history': typeof AuthenticatedHistoryRoute
+  '/meetings': typeof AuthenticatedMeetingsRoute
+  '/planner': typeof AuthenticatedPlannerRoute
+  '/settings': typeof AuthenticatedSettingsRoute
+  '/': typeof AuthenticatedIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/assistant': typeof AssistantRoute
-  '/email': typeof EmailRoute
-  '/history': typeof HistoryRoute
-  '/meetings': typeof MeetingsRoute
-  '/planner': typeof PlannerRoute
-  '/settings': typeof SettingsRoute
+  '/assistant': typeof AuthenticatedAssistantRoute
+  '/email': typeof AuthenticatedEmailRoute
+  '/history': typeof AuthenticatedHistoryRoute
+  '/meetings': typeof AuthenticatedMeetingsRoute
+  '/planner': typeof AuthenticatedPlannerRoute
+  '/settings': typeof AuthenticatedSettingsRoute
+  '/': typeof AuthenticatedIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/assistant': typeof AssistantRoute
-  '/email': typeof EmailRoute
-  '/history': typeof HistoryRoute
-  '/meetings': typeof MeetingsRoute
-  '/planner': typeof PlannerRoute
-  '/settings': typeof SettingsRoute
+  '/_authenticated/assistant': typeof AuthenticatedAssistantRoute
+  '/_authenticated/email': typeof AuthenticatedEmailRoute
+  '/_authenticated/history': typeof AuthenticatedHistoryRoute
+  '/_authenticated/meetings': typeof AuthenticatedMeetingsRoute
+  '/_authenticated/planner': typeof AuthenticatedPlannerRoute
+  '/_authenticated/settings': typeof AuthenticatedSettingsRoute
+  '/_authenticated/': typeof AuthenticatedIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
     | '/assistant'
     | '/email'
     | '/history'
     | '/meetings'
     | '/planner'
     | '/settings'
+    | '/'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
     | '/assistant'
     | '/email'
     | '/history'
     | '/meetings'
     | '/planner'
     | '/settings'
+    | '/'
   id:
     | '__root__'
-    | '/'
-    | '/assistant'
-    | '/email'
-    | '/history'
-    | '/meetings'
-    | '/planner'
-    | '/settings'
+    | '/_authenticated/assistant'
+    | '/_authenticated/email'
+    | '/_authenticated/history'
+    | '/_authenticated/meetings'
+    | '/_authenticated/planner'
+    | '/_authenticated/settings'
+    | '/_authenticated/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  AssistantRoute: typeof AssistantRoute
-  EmailRoute: typeof EmailRoute
-  HistoryRoute: typeof HistoryRoute
-  MeetingsRoute: typeof MeetingsRoute
-  PlannerRoute: typeof PlannerRoute
-  SettingsRoute: typeof SettingsRoute
+  AuthenticatedAssistantRoute: typeof AuthenticatedAssistantRoute
+  AuthenticatedEmailRoute: typeof AuthenticatedEmailRoute
+  AuthenticatedHistoryRoute: typeof AuthenticatedHistoryRoute
+  AuthenticatedMeetingsRoute: typeof AuthenticatedMeetingsRoute
+  AuthenticatedPlannerRoute: typeof AuthenticatedPlannerRoute
+  AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
+  AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
+    '/_authenticated/': {
+      id: '/_authenticated/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+      preLoaderRoute: typeof AuthenticatedIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/assistant': {
-      id: '/assistant'
+    '/_authenticated/assistant': {
+      id: '/_authenticated/assistant'
       path: '/assistant'
       fullPath: '/assistant'
-      preLoaderRoute: typeof AssistantRouteImport
+      preLoaderRoute: typeof AuthenticatedAssistantRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/email': {
-      id: '/email'
+    '/_authenticated/email': {
+      id: '/_authenticated/email'
       path: '/email'
       fullPath: '/email'
-      preLoaderRoute: typeof EmailRouteImport
+      preLoaderRoute: typeof AuthenticatedEmailRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/history': {
-      id: '/history'
+    '/_authenticated/history': {
+      id: '/_authenticated/history'
       path: '/history'
       fullPath: '/history'
-      preLoaderRoute: typeof HistoryRouteImport
+      preLoaderRoute: typeof AuthenticatedHistoryRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/meetings': {
-      id: '/meetings'
+    '/_authenticated/meetings': {
+      id: '/_authenticated/meetings'
       path: '/meetings'
       fullPath: '/meetings'
-      preLoaderRoute: typeof MeetingsRouteImport
+      preLoaderRoute: typeof AuthenticatedMeetingsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/planner': {
-      id: '/planner'
+    '/_authenticated/planner': {
+      id: '/_authenticated/planner'
       path: '/planner'
       fullPath: '/planner'
-      preLoaderRoute: typeof PlannerRouteImport
+      preLoaderRoute: typeof AuthenticatedPlannerRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/settings': {
-      id: '/settings'
+    '/_authenticated/settings': {
+      id: '/_authenticated/settings'
       path: '/settings'
       fullPath: '/settings'
-      preLoaderRoute: typeof SettingsRouteImport
+      preLoaderRoute: typeof AuthenticatedSettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  AssistantRoute: AssistantRoute,
-  EmailRoute: EmailRoute,
-  HistoryRoute: HistoryRoute,
-  MeetingsRoute: MeetingsRoute,
-  PlannerRoute: PlannerRoute,
-  SettingsRoute: SettingsRoute,
+  AuthenticatedAssistantRoute: AuthenticatedAssistantRoute,
+  AuthenticatedEmailRoute: AuthenticatedEmailRoute,
+  AuthenticatedHistoryRoute: AuthenticatedHistoryRoute,
+  AuthenticatedMeetingsRoute: AuthenticatedMeetingsRoute,
+  AuthenticatedPlannerRoute: AuthenticatedPlannerRoute,
+  AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
+  AuthenticatedIndexRoute: AuthenticatedIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
