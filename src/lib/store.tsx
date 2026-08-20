@@ -164,7 +164,22 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         setHistory((current) => current.map((h) => (h.id === id ? { ...h, saved: !h.saved } : h))),
       deleteHistory: (id) => setHistory((current) => current.filter((h) => h.id !== id)),
       clearHistory: () => setHistory([]),
-      updateProfile: (next) => setProfile((current) => ({ ...current, ...next })),
+      updateProfile: (next) => {
+        setProfile((current) => ({ ...current, ...next }));
+        void (async () => {
+          const { data } = await supabase.auth.getSession();
+          const userId = data.session?.user.id;
+          if (!userId) return;
+          const merged = { ...profile, ...next };
+          await supabase.from("profiles").upsert({
+            id: userId,
+            name: merged.name,
+            role: merged.role,
+            working_hours: merged.workingHours,
+            default_tone: merged.defaultTone,
+          });
+        })();
+      },
     }),
     [hydrated, tasks, history, profile, addTasks],
   );
