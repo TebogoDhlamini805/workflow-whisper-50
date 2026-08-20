@@ -45,7 +45,7 @@ export function AppShell({
             <Sparkles className="size-4 text-primary-foreground" aria-hidden />
           </div>
           <div>
-            <p className="font-serif text-lg leading-none">Cadence</p>
+            <p className="font-serif text-lg leading-none">AI Productivity&nbsp;Assistant</p>
             <p className="text-[11px] text-muted-foreground">Workplace AI</p>
           </div>
         </div>
@@ -82,7 +82,7 @@ export function AppShell({
             <div className="flex size-8 items-center justify-center rounded-lg bg-primary">
               <Sparkles className="size-4 text-primary-foreground" aria-hidden />
             </div>
-            <span className="font-serif text-lg leading-none">Cadence</span>
+            <span className="font-serif text-lg leading-none">AI Productivity&nbsp;Assistant</span>
           </div>
           <p className="hidden label-eyebrow lg:block">{title}</p>
           <Link

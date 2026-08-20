@@ -8,7 +8,7 @@ const PROFILE_KEY = "cadence.profile.v1";
 export type Profile = { name: string; role: string; workingHours: string; defaultTone: string };
 
 const defaultProfile: Profile = {
-  name: "Nancy",
+  name: "Tebogo",
   role: "Operations Lead",
   workingHours: "09:00–17:00",
   defaultTone: "Professional",
