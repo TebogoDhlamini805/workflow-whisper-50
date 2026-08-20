@@ -1,14 +1,17 @@
-import { Link, useRouterState } from "@tanstack/react-router";
+import { useQueryClient } from "@tanstack/react-query";
+import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import {
   CalendarClock,
   FileText,
   History,
   LayoutDashboard,
+  LogOut,
   Mail,
   Settings,
   Sparkles,
 } from "lucide-react";
 import type { ReactNode } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import { useStore } from "@/lib/store";
 
 const navItems = [
@@ -36,6 +39,16 @@ export function AppShell({
 }) {
   const { profile } = useStore();
   const pathname = useRouterState({ select: (state) => state.location.pathname });
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
+  async function handleSignOut() {
+    await queryClient.cancelQueries();
+    queryClient.clear();
+    await supabase.auth.signOut();
+    navigate({ to: "/auth", replace: true });
+  }
+
 
   return (
     <div className="min-h-screen bg-background text-foreground">
