@@ -90,6 +90,35 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     setHydrated(true);
   }, []);
 
+  // Keep the profile in sync with the signed-in user's stored profile.
+  useEffect(() => {
+    let active = true;
+    const load = async (userId: string | undefined) => {
+      if (!userId) return;
+      const { data } = await supabase
+        .from("profiles")
+        .select("name, role, working_hours, default_tone")
+        .eq("id", userId)
+        .maybeSingle();
+      if (!active || !data) return;
+      setProfile((current) => ({
+        name: data.name || current.name,
+        role: data.role || current.role,
+        workingHours: data.working_hours || current.workingHours,
+        defaultTone: data.default_tone || current.defaultTone,
+      }));
+    };
+    supabase.auth.getSession().then(({ data }) => load(data.session?.user.id));
+    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
+      void load(session?.user.id);
+    });
+    return () => {
+      active = false;
+      sub.subscription.unsubscribe();
+    };
+  }, []);
+
+
   useEffect(() => {
     if (hydrated) window.localStorage.setItem(TASKS_KEY, JSON.stringify(tasks));
   }, [tasks, hydrated]);
