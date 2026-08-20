@@ -1,5 +1,5 @@
 import { Outlet, createFileRoute, useNavigate, useRouterState } from "@tanstack/react-router";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Loader2 } from "lucide-react";
 import { useSession } from "@/lib/auth";
 
@@ -11,13 +11,16 @@ export const Route = createFileRoute("/_authenticated")({
 function AuthenticatedLayout() {
   const { session, loading } = useSession();
   const navigate = useNavigate();
-  const href = useRouterState({ select: (state) => state.location.href });
+  const initialHref = useRouterState({ select: (state) => state.location.href });
+  const target = useRef(initialHref);
+  const sentRef = useRef(false);
 
   useEffect(() => {
-    if (!loading && !session) {
-      navigate({ to: "/auth", search: { redirect: href }, replace: true });
-    }
-  }, [loading, session, navigate, href]);
+    if (loading || session || sentRef.current) return;
+    sentRef.current = true;
+    const to = target.current.startsWith("/auth") ? "/" : target.current;
+    navigate({ to: "/auth", search: { redirect: to }, replace: true });
+  }, [loading, session, navigate]);
 
   if (loading || !session) {
     return (
@@ -29,3 +32,4 @@ function AuthenticatedLayout() {
 
   return <Outlet />;
 }
+
