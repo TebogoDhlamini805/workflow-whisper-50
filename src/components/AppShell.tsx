@@ -73,6 +73,13 @@ export function AppShell({
         <div className="rounded-xl bg-secondary p-3">
           <p className="text-sm font-medium">{profile.name}</p>
           <p className="text-xs text-muted-foreground">{profile.role}</p>
+          <button
+            onClick={handleSignOut}
+            className="mt-2 flex items-center gap-1.5 text-xs text-muted-foreground transition-colors hover:text-foreground"
+          >
+            <LogOut className="size-3.5" aria-hidden />
+            Sign out
+          </button>
         </div>
       </aside>
 
